@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout effectué{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/success.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="success-wrapper">
+        <h1>Le client a bien été ajouté à l'événement</h1>
+        <a href="{{ path('app_events') }}" class="back-link">← Retour à la liste des événements</a>
+    </div>
+{% endblock %}

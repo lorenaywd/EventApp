@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'événement - {{ event.name }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/eventDetails.css') }}">
+{% endblock %}
+{% block body %}
+
+<style>
+    .event-wrapper { margin: 2em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .event-wrapper .event-card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+    .event-card img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 16px; }
+    .event-card h2 { margin: 12px 0; font-size: 24px; }
+    .event-card p { margin: 8px 0; line-height: 1.5; }
+    .back-link { display: inline-block; margin-top: 20px; text-decoration: none; color: #007bff; }
+</style>
+
+<div class="event-wrapper">
+    <div class="event-card">
+
+        {# <img src="{{ asset(event.imagePath ?? 'images/default-event.jpg') }}" alt="Image de {{ event.name }}"> #}
+
+        <h2>{{ event.name }}</h2>
+        <p><strong>Date :</strong> {{ event.date|date('d/m/Y') }}</p>
+        <p><strong>Lieu :</strong> {{ event.location }}</p>
+    </div>
+    <div class="participants">
+        <h3>Participants</h3>
+        {% if event.participants is not empty %}
+            {% for participant in event.participants %}
+                <div class="participant">
+                    <p><strong>Nom :</strong> {{ participant.name }}</p>
+                    <p><strong>Email :</strong> {{ participant.email }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucun participant n'est inscrit pour cet événement.</p>
+        {% endif %}
+        <a href="{{ path('app_add_participant', { 'eventId': event.id }) }}" class="btn btn-primary">Ajouter un participant</a>
+    </div>
+
+    <a href="{{ path('app_events') }}" class="back-link">← Retour à la liste des événements</a>
+</div>
+{% endblock %}
+
